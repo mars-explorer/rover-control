@@ -32,3 +32,7 @@ Expected Output:
 1 3 N
 5 1 E
 ```
+
+# CI status
+
+[![Build Status](https://travis-ci.org/mars-explorer/rover-control.png)](https://travis-ci.org/mars-explorer/rover-control)
