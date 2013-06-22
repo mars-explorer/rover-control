@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'rover-control'
+
+if ARGV.length != 1
+  $stderr.puts "usage rover_console FILE"
+  exit 1
+end
+
+file_name = ARGV[0]
+unless File.exist? file_name
+  $stderr.puts "can not read file #{file_name}"
+  exit 2
+end
+
+instructions = File.read file_name
+
+RoverControl::Controller.new.execute instructions

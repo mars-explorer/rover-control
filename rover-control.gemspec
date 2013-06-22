@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 2.13.0"
   spec.add_development_dependency "cucumber", "~> 1.3.2"
   spec.add_development_dependency "json", "~> 1.8.0"
+  spec.add_development_dependency "aruba", "~> 0.5.3"
 end
