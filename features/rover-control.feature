@@ -17,7 +17,6 @@ Feature: Rover control
     """
     1 3 N
     5 1 E
-
     """
 
   Scenario: Invalid instructions
@@ -34,5 +33,23 @@ Feature: Rover control
     """
     invalid grid dimension (5 A)
     invalid rover movements (LNR)
+    """
 
+  Scenario: The rover can't exist the grid
+    Given I can control the rovers
+    When  I send the instructions:
+    """
+    5 5
+    1 2 N
+    LMMM
+    3 3 E
+    MMRMMRMRRM
+    4 4 N
+    MM
+    """
+    Then the output should be:
+    """
+    0 2 W (stopped to not exist the grid)
+    5 1 E
+    4 5 N (stopped to not exist the grid)
     """

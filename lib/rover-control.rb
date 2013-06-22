@@ -14,5 +14,6 @@ require "rover-control/models/point"
 require "rover-control/models/position"
 require "rover-control/models/grid"
 require "rover-control/models/cardinal_direction"
+require "rover-control/models/authorization"
 
 require "rover-control/models/rover"

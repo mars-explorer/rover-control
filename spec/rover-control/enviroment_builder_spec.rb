@@ -36,6 +36,10 @@ describe RoverControl::EnviromentBuilder do
       it 'initialize the rover with its movements' do
         expect(rover.movements).to eq([:spin_left, :move, :spin_left, :move ])
       end
+
+      it 'links to rover to the grid' do
+        expect(rover.grid).to eq(subject.grid)
+      end
     end
   end
 end

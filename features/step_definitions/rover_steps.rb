@@ -11,5 +11,5 @@ When(/^I send the instructions:$/) do |instructions|
 end
 
 Then(/^the output should be:$/) do |string|
-  expect(@output).to eq(string)
+  expect(@output.split("\n")).to eq(string.split("\n"))
 end

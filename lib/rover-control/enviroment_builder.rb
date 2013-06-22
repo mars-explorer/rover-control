@@ -9,7 +9,7 @@ class RoverControl::EnviromentBuilder
       position = Position.new(execution[:initial_position][:x],
                               execution[:initial_position][:y],
                               execution[:initial_position][:orientation])
-      RoverControl::Rover.new(position, execution[:movements])
+      RoverControl::Rover.new(enviroment.grid, position, execution[:movements])
     end
 
     enviroment

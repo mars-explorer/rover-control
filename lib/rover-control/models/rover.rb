@@ -3,10 +3,12 @@ require 'forwardable'
 class RoverControl::Rover
   extend Forwardable
 
-  attr_reader :position, :movements
+  attr_reader :position, :movements, :status, :grid
+
   def_delegators :position, :orientation, :x, :y
 
-  def initialize(initial_position, movements)
+  def initialize(grid, initial_position, movements)
+    self.grid      = grid
     self.position  = initial_position
     self.movements = movements
   end
@@ -17,9 +19,9 @@ class RoverControl::Rover
   end
 
   def execute
-    begin
+    while movements.any?
       execute_next
-    end while movements.any?
+    end
   end
 
   private
@@ -33,8 +35,29 @@ class RoverControl::Rover
   end
 
   def move
-    self.position = self.position.send(orientation.name)
+    next_position = self.position.send(orientation.name)
+
+    if is_authorized? next_position
+      self.position = next_position
+    else
+      puts "authorization denied #{authorization(position)}"
+      stop authorization(next_position).reason
+    end
   end
 
-  attr_writer :position, :movements
+  def is_authorized?(position)
+    authorization(position).granted?
+  end
+
+  def authorization(position)
+    grid.authorize_movement?(position)
+  end
+
+  def stop(reason)
+    self.movements = []
+    puts "setting status, #{reason.inspect}"
+    self.status = reason
+  end
+
+  attr_writer :position, :movements, :grid, :status
 end

@@ -13,8 +13,9 @@ describe RoverControl::Rover do
   let(:orientation)      { CardinalDirection.north}
   let(:initial_position) { Position.new(x, y, orientation) }
   let(:movements)        { [:spin_right] }
+  let(:grid)             { stub :grid, authorize_movement?: RoverControl::Authorization.granted }
 
-  subject { described_class.new initial_position, movements }
+  subject { described_class.new grid, initial_position, movements }
 
   describe '#initialize' do
     its(:position)  { should == initial_position }
@@ -63,14 +64,36 @@ describe RoverControl::Rover do
 
     describe 'execute' do
       let(:orientation) { CardinalDirection.west }
-      let(:movements) { [:spin_left, :spin_left] }
+      let(:movements) { [:spin_left, :spin_left, :spin_left, :move, :move, :move] }
 
       before { subject.execute }
 
-      it_behaves_like 'to be located at', 1, 1, :east
+      context 'authorized movements' do
+        it_behaves_like 'to be located at', 1, 4, :north
 
-      it 'has no remaining movements' do
-        expect(subject.movements).to be_empty
+        it 'does not have a status' do
+          expect(subject.status).to be_nil
+        end
+
+        it 'has no remaining movements' do
+          expect(subject.movements).to be_empty
+        end
+      end
+
+      context 'denied movements' do
+        let(:grid) { stub :grid, authorize_movement?: RoverControl::Authorization.denied('reason') }
+
+        before { subject.execute }
+
+        it_behaves_like 'to be located at', 1, 1, :north
+
+        it 'has a status' do
+          expect(subject.status).to eq('reason')
+        end
+
+        it 'has no remaining movements' do
+          expect(subject.movements).to be_empty
+        end
       end
     end
   end

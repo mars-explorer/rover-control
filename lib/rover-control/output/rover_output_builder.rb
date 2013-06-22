@@ -6,7 +6,7 @@ class RoverControl::RoverOutputBuilder
   end
 
   def build
-    "#{rover.x} #{rover.y} #{orientation}"
+    "#{rover.x} #{rover.y} #{orientation}#{message}"
   end
 
   private
@@ -20,5 +20,9 @@ class RoverControl::RoverOutputBuilder
     when CardinalDirection.east  then 'E'
     when CardinalDirection.west  then 'W'
     end
+  end
+
+  def message
+    " (#{rover.status})" if rover.status
   end
 end
