@@ -12,7 +12,7 @@ Feature: Command line
     3 3 E
     MMRMMRMRRM
     """
-    When I run "rover_console inst"
+    When I run `rover_console inst`
     Then the exit status should be 0
     And  the output should contain:
     """
@@ -21,7 +21,7 @@ Feature: Command line
     """
 
   Scenario: launch with no file name
-    When I run "rover_console"
+    When I run `rover_console`
     Then the exit status should be 1
     And  the stderr should contain:
     """
@@ -29,7 +29,7 @@ Feature: Command line
     """
 
   Scenario: launch with non existing file
-    When I run "rover_console not_exiting"
+    When I run `rover_console not_exiting`
     Then the exit status should be 2
     And  the stderr should contain:
     """
