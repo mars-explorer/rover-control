@@ -11,6 +11,7 @@ require 'rspec/mocks'
 module RoverControl ; end
 
 Dir["support/**/*.rb"].each { |file| require file }
+Dir["../lib/rover-control/models/*.rb"].each { |file| require file }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

@@ -6,4 +6,9 @@ class Position < Point
     super x,y
     self.orientation = orientation
   end
+
+  def ==(other)
+    super &&
+    orientation == other.orientation
+  end
 end
