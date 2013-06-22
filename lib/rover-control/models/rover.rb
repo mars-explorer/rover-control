@@ -40,7 +40,6 @@ class RoverControl::Rover
     if is_authorized? next_position
       self.position = next_position
     else
-      puts "authorization denied #{authorization(position)}"
       stop authorization(next_position).reason
     end
   end
@@ -55,7 +54,6 @@ class RoverControl::Rover
 
   def stop(reason)
     self.movements = []
-    puts "setting status, #{reason.inspect}"
     self.status = reason
   end
 
