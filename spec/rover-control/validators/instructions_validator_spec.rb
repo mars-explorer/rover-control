@@ -58,5 +58,17 @@ eos
 
       it_behaves_like 'invalid instructions', 'invalid rover movements (LLNR)'
     end
+
+    describe 'no instruction' do
+      let(:instructions) { nil }
+
+      it_behaves_like 'invalid instructions', "instructions can't be blank"
+    end
+
+    describe 'no movements' do
+      let(:instructions) { "5 5" }
+
+      it_behaves_like 'invalid instructions', "movements can't be empty"
+    end
   end
 end
