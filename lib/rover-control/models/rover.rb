@@ -4,7 +4,7 @@ class RoverControl::Rover
   extend Forwardable
 
   attr_reader :position, :movements
-  def_delegator :position, :orientation
+  def_delegators :position, :orientation, :x, :y
 
   def initialize(initial_position, movements)
     self.position  = initial_position
@@ -17,7 +17,9 @@ class RoverControl::Rover
   end
 
   def execute
-    movements.each { execute_next }
+    begin
+      execute_next
+    end while movements.any?
   end
 
   private

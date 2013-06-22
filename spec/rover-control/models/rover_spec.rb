@@ -21,6 +21,11 @@ describe RoverControl::Rover do
     its(:movements) { should == movements }
   end
 
+  describe 'forwarded methods to the position' do
+    its(:orientation) { should == orientation }
+    its(:x)           { should == x }
+    its(:y)           { should == y }
+  end
   describe 'execute_next' do
     let(:movements) { [:spin_left, :spin_right] }
 

@@ -10,11 +10,11 @@ describe RoverControl::EnviromentBuilder do
         grid: { width: 6, height: 7 },
         execution_plan: [
           {
-            position: { x: 1, y: 2, orientation: :north },
+            initial_position: { x: 1, y: 2, orientation: :north },
             movements: [:spin_left, :move, :spin_left, :move ]
           },
           {
-            position: { x: 4, y: 4, orientation: :north },
+            initial_position: { x: 4, y: 4, orientation: :north },
             movements: [:spin_left, :move ]
           }
         ]
