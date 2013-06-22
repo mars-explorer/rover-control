@@ -33,16 +33,7 @@ class RoverControl::Rover
   end
 
   def move
-    case self.position.orientation
-    when CardinalDirection.north
-      self.position.y = self.position.y + 1
-    when CardinalDirection.south
-      self.position.y = self.position.y - 1
-    when CardinalDirection.west
-      self.position.x = self.position.x - 1
-    when CardinalDirection.east
-      self.position.x = self.position.x + 1
-    end
+    self.position = self.position.send(orientation.name)
   end
 
   attr_writer :position, :movements

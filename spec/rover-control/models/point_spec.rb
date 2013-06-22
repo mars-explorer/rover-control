@@ -44,4 +44,22 @@ describe Point do
       expect(subject).to_not eq(other)
     end
   end
+
+  describe 'directions' do
+    specify 'north' do
+      expect(subject.north).to eq(Point.new(x, y+1))
+    end
+
+    specify 'south' do
+      expect(subject.south).to eq(Point.new(x, y-1))
+    end
+
+    specify 'east' do
+      expect(subject.east).to eq(Point.new(x+1, y))
+    end
+
+    specify 'west' do
+      expect(subject.west).to eq(Point.new(x-1, y))
+    end
+  end
 end

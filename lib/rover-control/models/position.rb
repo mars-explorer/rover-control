@@ -11,4 +11,27 @@ class Position < Point
     super &&
     orientation == other.orientation
   end
+
+  def north
+    orient super()
+  end
+
+  def south
+    orient super()
+  end
+
+  def east
+   orient super()
+  end
+
+  def west
+    orient super()
+  end
+
+  private
+
+  def orient(position)
+    position.orientation = orientation
+    position
+  end
 end

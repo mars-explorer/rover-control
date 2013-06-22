@@ -56,28 +56,8 @@ describe RoverControl::Rover do
     describe 'move' do
       let(:movements) { [ :move ] }
 
-      describe 'from the south' do
-        let(:orientation) { CardinalDirection.south }
-
-        it_behaves_like 'to be located at', 1, 0, :south
-      end
-
-      describe 'from the north' do
-        let(:orientation) { CardinalDirection.north }
-
-        it_behaves_like 'to be located at', 1, 2, :north
-      end
-
-      describe 'from the west' do
-        let(:orientation) { CardinalDirection.west }
-
-        it_behaves_like 'to be located at', 0, 1, :west
-      end
-
-      describe 'from the east' do
-        let(:orientation) { CardinalDirection.east }
-
-        it_behaves_like 'to be located at', 2, 1, :east
+      it 'changes its position' do
+        expect(subject.position).to eq(Position.new(x,2, orientation))
       end
     end
 

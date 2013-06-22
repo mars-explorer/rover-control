@@ -2,9 +2,10 @@ require 'spec_helper'
 require 'rover-control/models/grid'
 
 describe Position do
-  let(:x) { 5 }
-  let(:y) { 7 }
-  subject { described_class.new(x, y, :south) }
+  let(:x)           { 5 }
+  let(:y)           { 7 }
+  let(:orientation) { :south }
+  subject { described_class.new(x, y, orientation) }
 
   describe '#initialize' do
     specify { expect(Position.ancestors).to include(Point) }
@@ -23,7 +24,7 @@ describe Position do
   describe '==' do
 
     specify '2 positions are equal if point and the orientation are the same' do
-      other = Position.new(x,y, :south)
+      other = Position.new(x,y, orientation)
 
       expect(subject).to eq(other)
     end
@@ -35,9 +36,27 @@ describe Position do
     end
 
     specify '2 points are not equal if point is different' do
-      other = Position.new(0,0, :south)
+      other = Position.new(0,0, orientation)
 
       expect(subject).to_not eq(other)
+    end
+  end
+
+  describe 'directions' do
+    specify 'north' do
+      expect(subject.north).to eq(Position.new(x, y+1, orientation))
+    end
+
+    specify 'south' do
+      expect(subject.south).to eq(Position.new(x, y-1, orientation))
+    end
+
+    specify 'east' do
+      expect(subject.east).to eq(Position.new(x+1, y, orientation))
+    end
+
+    specify 'west' do
+      expect(subject.west).to eq(Position.new(x-1, y, orientation))
     end
   end
 end
