@@ -12,6 +12,8 @@ class RoverControl::EnviromentBuilder
       RoverControl::Rover.new(enviroment.grid, position, execution[:movements])
     end
 
+    enviroment.grid.register_rovers enviroment.rovers
+
     enviroment
   end
 

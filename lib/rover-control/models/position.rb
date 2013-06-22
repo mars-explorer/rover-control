@@ -28,6 +28,10 @@ class Position < Point
     orient super()
   end
 
+  def to_point
+    Point.new(x,y)
+  end
+
   private
 
   def orient(position)

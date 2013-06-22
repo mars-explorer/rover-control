@@ -53,3 +53,19 @@ Feature: Rover control
     5 1 E
     4 5 N (stopped to not exist the grid)
     """
+
+    Scenario: Two rovers can't be on the same square
+      Given I can control the rovers
+      When  I send the instructions:
+      """
+      5 5
+      1 2 N
+      MRM
+      2 2 N
+      MMM
+      """
+      Then the output should be:
+      """
+      2 3 E
+      2 2 N (stopped to avoid a collision)
+      """

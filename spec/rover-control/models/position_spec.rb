@@ -59,4 +59,8 @@ describe Position do
       expect(subject.west).to eq(Position.new(x-1, y, orientation))
     end
   end
+
+  describe 'to_point' do
+    specify { expect(subject.to_point).to eq(Point.new(5,7)) }
+  end
 end

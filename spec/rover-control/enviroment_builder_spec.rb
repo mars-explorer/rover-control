@@ -23,7 +23,14 @@ describe RoverControl::EnviromentBuilder do
 
     subject { described_class.new.build(fixture) }
 
-    its(:grid)   { should == Grid.new(6,7) }
+    describe 'grid' do
+      its(:grid)   { should == Grid.new(6,7) }
+
+      it 'register the rovers into the grid' do
+        expect(subject.grid.rovers).to eq(subject.rovers)
+      end
+    end
+
     its(:rovers) { should have(2).items }
 
     describe 'rover' do

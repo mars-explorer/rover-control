@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rover-control/models/grid'
 
-shared_examples_for 'stop to not exit the grid' do
+shared_examples_for 'stops to not exit the grid' do
 
   it 'is denied' do
     authorization = subject.authorize_movement? position
@@ -17,11 +17,30 @@ shared_examples_for 'stop to not exit the grid' do
 
 end
 
+shared_examples_for 'stops to avoid collision' do
+
+  it 'is denied' do
+    authorization = subject.authorize_movement? position
+
+    expect(authorization).to_not be_granted
+  end
+
+  it 'has a reason' do
+    authorization = subject.authorize_movement? position
+
+    expect(authorization.reason).to eq('stopped to avoid a collision')
+  end
+
+end
+
 describe Grid do
   let(:width)  { 5 }
   let(:height) { 6 }
+  let(:rovers) { [] }
 
   subject { described_class.new(width,height) }
+
+  before { subject.register_rovers rovers }
 
   describe '#initialize' do
     its(:width)  { should == width }
@@ -76,25 +95,40 @@ describe Grid do
     context 'too low' do
       let(:position) { Position.new(2, -2, :north) }
 
-      it_behaves_like 'stop to not exit the grid'
+      it_behaves_like 'stops to not exit the grid'
     end
 
     context 'too high' do
       let(:position) { Position.new(2, 7, :north) }
 
-      it_behaves_like 'stop to not exit the grid'
+      it_behaves_like 'stops to not exit the grid'
     end
 
     context 'too much on the left' do
       let(:position) { Position.new(-2, 2, :north) }
 
-      it_behaves_like 'stop to not exit the grid'
+      it_behaves_like 'stops to not exit the grid'
     end
 
     context 'too much on the right' do
       let(:position) { Position.new(6, 2, :north) }
 
-      it_behaves_like 'stop to not exit the grid'
+      it_behaves_like 'stops to not exit the grid'
     end
+
+    context 'there is already a rover at this position' do
+      let(:rovers) { [ stub(:position, position: Position.new(2,2,:south)) ] }
+
+      let(:position) { Position.new(2, 2, :north) }
+
+      it_behaves_like 'stops to avoid collision'
+    end
+  end
+
+  describe '#register_rovers' do
+    let(:rovers) { stub(:rovers) }
+
+    before { subject.register_rovers rovers }
+    its(:rovers) { should eq(rovers) }
   end
 end
