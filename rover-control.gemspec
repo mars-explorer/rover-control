@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rover/control/version'
+require 'rover-control/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rover-control"
-  spec.version       = Rover::Control::VERSION
+  spec.version       = RoverControl::VERSION
   spec.authors       = ["David Rouchy"]
   spec.email         = ["drouchy@gmail.com"]
   spec.description   = %q{Mars rover control exercise}

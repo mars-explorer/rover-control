@@ -1,3 +1,3 @@
 $LOAD_PATH.unshift 'lib'
 
-require 'rover/control'
+require 'rover-control'

@@ -8,7 +8,7 @@ Bundler.require
 require 'rspec'
 require 'rspec/mocks'
 
-module Rover ; end
+module RoverControl ; end
 
 Dir["support/**/*.rb"].each { |file| require file }
 
