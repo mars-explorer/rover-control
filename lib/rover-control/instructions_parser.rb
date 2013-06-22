@@ -54,7 +54,7 @@ class RoverControl::InstructionsParser
   end
 
   def parse_movements(movements)
-    movements.chars.map do |char|
+    movements.strip.chars.map do |char|
       case(char)
       when 'L' then :spin_left
       when 'R' then :spin_right

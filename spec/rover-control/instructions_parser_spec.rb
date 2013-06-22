@@ -18,7 +18,15 @@ describe RoverControl::InstructionsParser do
       context 'rectangular grid' do
         let(:instructions) { "5 6\n" }
 
-        it 'parsed correctly the with and the height' do
+        it 'parses correctly the with and the height' do
+          expect(grid).to eq({width: 5, height: 6})
+        end
+      end
+
+      describe 'supports extra spaces' do
+        let(:instructions) { "    5   6   \n" }
+
+        it 'parses correctly the with and the height' do
           expect(grid).to eq({width: 5, height: 6})
         end
       end
@@ -65,6 +73,22 @@ describe RoverControl::InstructionsParser do
 
             specify { expect(position[:orientation]).to equal(:west) }
           end
+
+          describe 'supports extra spaces' do
+            let(:instructions) { "5 5\n   1   2   W   \nL" }
+
+            it 'sets the initial position lattitude' do
+              expect(position[:x]).to equal(1)
+            end
+
+            it 'sets the initial position longitude' do
+              expect(position[:y]).to equal(2)
+            end
+
+            it 'parses correctly the with and the height' do
+              expect(position[:orientation]).to equal(:west)
+            end
+          end
         end
       end
 
@@ -73,6 +97,14 @@ describe RoverControl::InstructionsParser do
 
         it 'parses the second line as the movements' do
           expect(movements).to eq([:spin_left, :move, :spin_left, :move, :spin_left, :move, :spin_right, :move, :move])
+        end
+
+        describe 'supports extra spaces' do
+          let(:instructions) { "5 5\n1 2 N\n    LMLMLMRMM " }
+
+          it 'parses correctly the with and the height' do
+            expect(movements).to eq([:spin_left, :move, :spin_left, :move, :spin_left, :move, :spin_right, :move, :move])
+          end
         end
       end
     end
