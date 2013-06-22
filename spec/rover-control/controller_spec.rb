@@ -26,16 +26,36 @@ describe RoverControl::Controller do
     let(:instructions)        { stub(:instructions) }
     let(:parsed_instructions) { stub(:parsed_instructions)}
 
-    before do
-      instruction_parser.should_receive(:parse).and_return(parsed_instructions)
-      environment_builder.should_receive(:build).with(parsed_instructions).and_return(environment)
-      output_builder.should_receive(:build).and_return('expected output')
+    context 'valid instructions' do
+      let(:validator) { stub(:validator, valid?: true, errors: [])}
+
+      before do
+        instruction_parser.should_receive(:parse).and_return(parsed_instructions)
+        environment_builder.should_receive(:build).with(parsed_instructions).and_return(environment)
+        output_builder.should_receive(:build).and_return('expected output')
+
+        RoverControl::InstructionsValidator.stub(:new).and_return(validator)
+      end
+
+      it 'outputs the instructions result into the io' do
+        subject.execute(instructions)
+
+        expect(output).to eq("expected output\n")
+      end
     end
 
-    it 'outputs the instructions result into the io' do
-      subject.execute(instructions)
+    context 'invalid instructions' do
+      let(:validator) { stub(:validator, valid?: false, errors: %w(errors to show))}
 
-      expect(output).to eq("expected output\n")
+      before do
+        RoverControl::InstructionsValidator.stub(:new).and_return(validator)
+      end
+
+      it 'outputs the instructions result into the io' do
+        subject.execute(instructions)
+
+        expect(output).to eq("errors\nto\nshow\n")
+      end
     end
   end
 end

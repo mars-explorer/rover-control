@@ -19,3 +19,20 @@ Feature: Rover control
     5 1 E
 
     """
+
+  Scenario: Invalid instructions
+    Given I can control the rovers
+    When  I send the instructions:
+    """
+    5 A
+    1 2 N
+    LMLMLMLMM
+    3 3 E
+    LNR
+    """
+    Then the output should be:
+    """
+    invalid grid dimension (5 A)
+    invalid rover movements (LNR)
+
+    """

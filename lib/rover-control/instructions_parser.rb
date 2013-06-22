@@ -1,5 +1,7 @@
 
 class RoverControl::InstructionsParser
+  include RoverControl::InstructionReader
+
   def initialize(instructions)
     self.instructions = instructions.split("\n")
   end
@@ -37,11 +39,7 @@ class RoverControl::InstructionsParser
   end
 
   def grid
-    instructions.first.split ' '
-  end
-
-  def executions
-    instructions[1..-1].each_slice(2)
+    grid_definition.split ' '
   end
 
   def parse_position(position)
