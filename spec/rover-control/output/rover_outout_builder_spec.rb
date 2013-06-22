@@ -8,25 +8,25 @@ describe RoverControl::RoverOutputBuilder do
   describe 'build' do
 
     context 'north' do
-      let(:orientation) { :north }
+      let(:orientation) { CardinalDirection.north }
 
       its(:build) { should == '1 2 N' }
     end
 
     context 'south' do
-      let(:orientation) { :south }
+      let(:orientation) { CardinalDirection.south }
 
       its(:build) { should == '1 2 S' }
     end
 
     context 'east' do
-      let(:orientation) { :east }
+      let(:orientation) { CardinalDirection.east }
 
       its(:build) { should == '1 2 E' }
     end
 
     context 'west' do
-      let(:orientation) { :west }
+      let(:orientation) { CardinalDirection.west }
 
       its(:build) { should == '1 2 W' }
     end

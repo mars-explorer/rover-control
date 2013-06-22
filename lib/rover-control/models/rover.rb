@@ -24,25 +24,23 @@ class RoverControl::Rover
 
   private
 
-  CARDINALS = [:north, :west, :south, :east]
-
   def spin_left
-    self.position.orientation = CARDINALS[ (CARDINALS.index(orientation) + 1) % 4 ]
+    self.position.orientation = orientation.left
   end
 
   def spin_right
-    self.position.orientation = CARDINALS[ (CARDINALS.index(orientation) - 1) % 4 ]
+    self.position.orientation = orientation.right
   end
 
   def move
     case self.position.orientation
-    when :north
+    when CardinalDirection.north
       self.position.y = self.position.y + 1
-    when :south
+    when CardinalDirection.south
       self.position.y = self.position.y - 1
-    when :west
+    when CardinalDirection.west
       self.position.x = self.position.x - 1
-    when :east
+    when CardinalDirection.east
       self.position.x = self.position.x + 1
     end
   end

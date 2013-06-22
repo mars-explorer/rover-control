@@ -65,10 +65,10 @@ class RoverControl::InstructionsParser
 
   def parse_orientation(orientation)
     case(orientation)
-    when 'N' then :north
-    when 'S' then :south
-    when 'E' then :east
-    when 'W' then :west
+    when 'N' then CardinalDirection.north
+    when 'S' then CardinalDirection.south
+    when 'E' then CardinalDirection.east
+    when 'W' then CardinalDirection.west
     end
   end
 end

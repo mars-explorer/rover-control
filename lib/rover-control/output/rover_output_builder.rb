@@ -15,10 +15,10 @@ class RoverControl::RoverOutputBuilder
 
   def orientation
     case rover.orientation
-    when :north then 'N'
-    when :south then 'S'
-    when :east  then 'E'
-    when :west  then 'W'
+    when CardinalDirection.north then 'N'
+    when CardinalDirection.south then 'S'
+    when CardinalDirection.east  then 'E'
+    when CardinalDirection.west  then 'W'
     end
   end
 end

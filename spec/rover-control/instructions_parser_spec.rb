@@ -53,25 +53,25 @@ describe RoverControl::InstructionsParser do
 
         describe 'orientation' do
           it 'sets the initial position orientation' do
-            expect(position[:orientation]).to equal(:north)
+            expect(position[:orientation]).to equal(CardinalDirection.north)
           end
 
           describe 'south orientation' do
             let(:instructions) { "5 5\n1 2 S\nL" }
 
-            specify { expect(position[:orientation]).to equal(:south) }
+            specify { expect(position[:orientation]).to equal(CardinalDirection.south) }
           end
 
           describe 'east orientation' do
             let(:instructions) { "5 5\n1 2 E\nL" }
 
-            specify { expect(position[:orientation]).to equal(:east) }
+            specify { expect(position[:orientation]).to equal(CardinalDirection.east) }
           end
 
           describe 'west orientation' do
             let(:instructions) { "5 5\n1 2 W\nL" }
 
-            specify { expect(position[:orientation]).to equal(:west) }
+            specify { expect(position[:orientation]).to equal(CardinalDirection.west) }
           end
 
           describe 'supports extra spaces' do
@@ -86,7 +86,7 @@ describe RoverControl::InstructionsParser do
             end
 
             it 'parses correctly the with and the height' do
-              expect(position[:orientation]).to equal(:west)
+              expect(position[:orientation]).to equal(CardinalDirection.west)
             end
           end
         end
