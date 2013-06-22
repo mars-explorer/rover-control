@@ -1,5 +1,5 @@
+
+module RoverControl; end
+
 require "rover-control/version"
-
-module RoverControl
-
-end
+require "rover-control/controller"

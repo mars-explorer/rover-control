@@ -3,7 +3,7 @@ require 'stringio'
 Given(/^I can control the rovers$/) do
   @output = ''
   stdout_mock = StringIO.new(@output)
-  @control = Rover::Control.new(stdout_mock)
+  @control = RoverControl::Controller.new(stdout_mock)
 end
 
 When(/^I send the instructions:$/) do |instructions|
